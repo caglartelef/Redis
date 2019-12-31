@@ -9,24 +9,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("redis")
-public class RedisController {
+@RequestMapping("/redis")
+public final class RedisController {
 
     @Autowired
     private RedisService redisService;
 
     @GetMapping("/set")
     public void setRedis() {
+        // we want to save class type on redis
         UserInfo userInfo = new UserInfo();
-        userInfo.setId(1);
+        // Using id we have set it as cache key.
+        userInfo.setId("1");
         userInfo.setEmail("info@caglartelef.com");
         userInfo.setPassword("12345");
-        redisService.setUserInfo(userInfo.getEmail(), JsonConvertUtil.convertFromClassToJson(userInfo));
+        // From UserInfo class to json object
+        String json = JsonConvertUtil.convertFromClassToJson(userInfo);
+        // Data is saving on redis service
+        redisService.setUserInfo(userInfo.getEmail(), json);
     }
 
     @GetMapping("/get")
     public UserInfo getService() {
-        String value = redisService.getUserInfo("info@caglartelef.com");
+        // The data is retrieved from redis using the key.
+        String value = redisService.getUserInfo("1");
+        // From json object class to UserInfo class
         return JsonConvertUtil.convertFromJsonToClass(value, UserInfo.class);
     }
 

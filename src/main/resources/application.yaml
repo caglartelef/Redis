@@ -3,5 +3,5 @@ spring:
     name: Redis
 
   redis:
-    host: 127.0.0.1
-    port: 6379
+    host: 127.0.0.1 # Redis localhost address
+    port: 6379 # Redis localhost port
