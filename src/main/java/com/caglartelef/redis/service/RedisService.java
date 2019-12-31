@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public final class RedisService {
 
     @Autowired
-    private static RedisUtil<String> redisUtil;
+    private RedisUtil<String> redisUtil;
 
     /**
      * This method goes to redis and add user information

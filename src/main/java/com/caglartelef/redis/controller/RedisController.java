@@ -26,7 +26,7 @@ public final class RedisController {
         // From UserInfo class to json object
         String json = JsonConvertUtil.convertFromClassToJson(userInfo);
         // Data is saving on redis service
-        redisService.setUserInfo(userInfo.getEmail(), json);
+        redisService.setUserInfo(userInfo.getId(), json);
     }
 
     @GetMapping("/get")
